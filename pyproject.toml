@@ -1,0 +1,58 @@
+[project]
+name = "task-manager-api"
+version = "0.1.0"
+description = "REST API para gestionar tareas y proyectos"
+requires-python = ">=3.11"
+dependencies = [
+    "django>=5.2.14",
+    "django-filter>=25.2",
+    "djangorestframework>=3.17.1",
+    "djangorestframework-simplejwt>=5.5.1",
+    "gunicorn>=26.0.0",
+    "psycopg2-binary>=2.9.12",
+    "python-dotenv>=1.2.2",
+    "whitenoise>=6.12.0",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B"]
+ignore = ["F403", "F405", "N806"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["config", "users", "projects", "tasks", "tests"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/migrations/*.py" = ["E501"]
+"config/settings/*.py" = ["E501"]
+"config/settings.py" = ["E501"]
+"config/urls.py" = ["E501"]
+"projects/serializers.py" = ["E501"]
+"tasks/serializers.py" = ["E501"]
+"tasks/views.py" = ["E501"]
+"tests/test_api.py" = ["E501"]
+
+[tool.mypy]
+strict = true
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.development"
+testpaths = ["tests"]
+addopts = "--cov=. --cov-report=term-missing --cov-fail-under=80"
+pythonpath = ["."]
+
+[dependency-groups]
+dev = [
+    "mypy>=2.1.0",
+    "pre-commit>=4.6.0",
+    "pytest>=9.0.3",
+    "pytest-django>=4.12.0",
+    "ruff>=0.15.14",
+    "pytest-cov>=6.0.0",
+]
