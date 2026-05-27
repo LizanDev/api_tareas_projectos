@@ -1,3 +1,5 @@
+import os
+
 from .base import *
 
 DEBUG = os.getenv("DEBUG", "False").lower() in ("true", "1", "yes")
@@ -23,4 +25,4 @@ CSRF_COOKIE_SECURE = True
 MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STORAGES["staticfiles"]["BACKEND"] = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
