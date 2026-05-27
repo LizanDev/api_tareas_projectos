@@ -9,6 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ("id", "email", "created_at", "updated_at")
         read_only_fields = ("created_at", "updated_at")
 
+
 class UserRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, min_length=8)
 
@@ -22,7 +23,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             password=validated_data["password"],
             name=validated_data.get("name", ""),
         )
-    
+
+
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     username_field = "email"
-    

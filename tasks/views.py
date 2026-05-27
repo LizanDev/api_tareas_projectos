@@ -7,10 +7,15 @@ from tasks.serializers import TaskSerializer
 
 # Create your views here.
 
+
 class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
     permission_classes = [IsProjectOwnerOrReadOnly]
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    ]
     filterset_fields = ["status", "priority", "project", "assignee"]
     search_fields = ["title", "description"]
     ordering_fields = ["created_at", "due_date", "priority"]
@@ -18,5 +23,3 @@ class TaskViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Task.objects.filter(project__owner=self.request.user)
-    
-    

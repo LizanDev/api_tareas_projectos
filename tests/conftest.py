@@ -10,6 +10,7 @@ from tasks.models import Task
 def api_client():
     return APIClient()
 
+
 @pytest.fixture
 def user(db):
     User = get_user_model()
@@ -18,6 +19,7 @@ def user(db):
         name="Test User",
         password="testpass123",
     )
+
 
 @pytest.fixture
 def other_user(db):
@@ -28,18 +30,19 @@ def other_user(db):
         password="otherpass123",
     )
 
+
 @pytest.fixture
 def auth_client(api_client, user):
     api_client.force_authenticate(user=user)
     return api_client
 
+
 @pytest.fixture
 def project(db, user):
     return Project.objects.create(
-        name="Test Project",
-        description="Test description",
-        owner=user
+        name="Test Project", description="Test description", owner=user
     )
+
 
 @pytest.fixture
 def task(db, project, user):

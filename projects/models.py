@@ -3,8 +3,8 @@ from django.db import models
 
 # Create your models here.
 
-class Project(models.Model):
 
+class Project(models.Model):
     class Status(models.TextChoices):
         ACTIVE = "active", "Active"
         COMPLETED = "completed", "Completed"

@@ -8,8 +8,7 @@ from django.db import models
 
 # Create your models here.
 class UserManager(BaseUserManager):
-
-    def create_user(self,email:str, password:str |None = None, **extra_fields):
+    def create_user(self, email: str, password: str | None = None, **extra_fields):
         if not email:
             raise ValueError("El email es obligatorio")
         email = self.normalize_email(email)
@@ -17,12 +16,13 @@ class UserManager(BaseUserManager):
         user.set_password(password)
         user.save(using=self._db)
         return user
-    
-    def create_superuser(self,email:str, password:str, **extra_fields):
+
+    def create_superuser(self, email: str, password: str, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
-        return self.create_user(email,password, **extra_fields)
-    
+        return self.create_user(email, password, **extra_fields)
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=150)
